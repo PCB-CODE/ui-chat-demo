@@ -1,0 +1,53 @@
+classDiagram
+    class User {
+        +String id
+        +String email
+        +String password
+    }
+    class Chat {
+        +String id
+        +String createdAt
+        +String title
+        +String userId
+        +String visibility
+    }
+    class Message {
+        +String id
+        +String chatId
+        +String role
+        +String content
+        +String createdAt
+    }
+    class Vote {
+        +String chatId
+        +String messageId
+        +Boolean isUpvoted
+    }
+    class Document {
+        +String id
+        +String createdAt
+        +String title
+        +String content
+        +String kind
+        +String userId
+    }
+    class Suggestion {
+        +String id
+        +String documentId
+        +String documentCreatedAt
+        +String originalText
+        +String suggestedText
+        +String description
+        +Boolean isResolved
+        +String userId
+        +String createdAt
+    }
+
+    User "1" --> "many" Chat : owns
+    User "1" --> "many" Document : creates
+    User "1" --> "many" Suggestion : proposes
+    Chat "1" --> "many" Message : contains
+    Chat "1" --> "many" Vote : related to
+    Message "1" --> "many" Vote : voted on
+    Document "1" --> "many" Suggestion : associated with
+    Suggestion "1" --> "1" Document : references
